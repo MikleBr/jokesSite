@@ -1,0 +1,28 @@
+{% extends 'layout/basic.html' %}
+
+{% block content %}
+        <h2>Анекдоты: {{ current_rubric.name}} </h2>
+
+        {% for joke in jokes %}
+            <div class='joke'>
+                <div class='joke__published'>
+                    <div class='joke__info'>
+                        <p>
+                            {{ joke.published|date:'d.m.Y H:i' }}
+                        </p>
+                    </div>
+                    <p>
+                        {% for rubric in joke.rubric.all %}
+                            <a href='{% url 'by_rubric' rubric.pk %}'>{{ rubric }}</a>
+                        {% endfor %}
+                    </p>
+                </div>
+
+                <div class='joke__content'>
+                    <p>
+                        {{ joke.content|linebreaks }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+{% endblock %}
